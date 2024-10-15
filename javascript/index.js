@@ -77,11 +77,11 @@ function usingPromiseAll(food, step = 0) {
             descs.forEach((desc) => {
                 document.querySelector(`#${food}`).innerHTML += `<li>${desc}</li>`;
             });
-            usingPromises(food, step + 1);
         })
         .catch((error) => {
             console.log(error);
-
+        })
+        .finally(() => {
             document.querySelector(`#${food}Img`).removeAttribute("hidden");
         });
 }
