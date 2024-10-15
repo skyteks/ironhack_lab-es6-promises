@@ -28,8 +28,8 @@ getInstruction("mashedPotatoes", 4, (step5) => {
 */
 
 // Iteration 1 - using callbacks
-usingCallbacks('mashedPotatoes', 0);
-function usingCallbacks(food, step) {
+usingCallbacks('mashedPotatoes');
+function usingCallbacks(food, step = 0) {
     getInstruction(food, step, (desc) => {
         document.querySelector(`#${food}`).innerHTML += `<li>${desc}</li>`;
         usingCallbacks(food, step + 1);
@@ -39,8 +39,8 @@ function usingCallbacks(food, step) {
 }
 
 // Iteration 2 - using promises
-usingPromises('steak', 0);
-function usingPromises(food, step) {
+usingPromises('steak');
+function usingPromises(food, step = 0) {
     obtainInstruction(food, step)
         .then((desc) => {
             document.querySelector(`#${food}`).innerHTML += `<li>${desc}</li>`;
@@ -52,7 +52,18 @@ function usingPromises(food, step) {
 }
 
 // Iteration 3 using async/await
-// ...
+usingAsyncAwait('brusselsSprouts');
+async function usingAsyncAwait(food, step = 0) {
+    try {
+        const desc = await obtainInstruction(food, step);
+        document.querySelector(`#${food}`).innerHTML += `<li>${desc}</li>`;
+        await usingAsyncAwait(food, step + 1);
+    } catch (error) {
+        console.log(error);
+        
+        document.querySelector(`#${food}Img`).removeAttribute("hidden");
+    }
+}
 
 // Bonus 2 - Promise all
 // ...
