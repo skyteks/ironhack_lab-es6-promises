@@ -59,11 +59,29 @@ async function usingAsyncAwait(food, step = 0) {
         document.querySelector(`#${food}`).innerHTML += `<li>${desc}</li>`;
         await usingAsyncAwait(food, step + 1);
     } catch (error) {
-        console.log(error);
-        
         document.querySelector(`#${food}Img`).removeAttribute("hidden");
     }
 }
 
 // Bonus 2 - Promise all
 // ...
+usingPromiseAll('broccoli');
+function usingPromiseAll(food, step = 0) {
+    const array = [];
+    const count = 7;
+    for (let i = 0; i < count; i++) {
+        array.push(obtainInstruction(food, step++));
+    }
+    Promise.all(array)
+        .then((descs) => {
+            descs.forEach((desc) => {
+                document.querySelector(`#${food}`).innerHTML += `<li>${desc}</li>`;
+            });
+            usingPromises(food, step + 1);
+        })
+        .catch((error) => {
+            console.log(error);
+
+            document.querySelector(`#${food}Img`).removeAttribute("hidden");
+        });
+}
